@@ -378,11 +378,7 @@ def build_package(target):
             addpath = os.path.join(v['externals_root'], package_subdirectory, i)
             # lib and lib64 might both be necessary for cross-platform builds
             if i.startswith("lib"):
-                #fullpath = os.path.abspath(os.path.join(package_subdirectory, i))
-                fullpath_4 = os.path.abspath(os.path.join(build_dir,addpath)) # 4-2-stable changes for logging comparison - DWM
                 fullpath  = os.path.abspath(os.path.join(install_prefix, i))
-                log.debug ("DWM - fullpath_4 " + fullpath_4)	# DWM debug
-                log.debug ("DWM - fullpath_m " + fullpath)	# DWM debug
                 if os.path.isdir(fullpath):
                     package_cmd.extend([addpath])
                 else:

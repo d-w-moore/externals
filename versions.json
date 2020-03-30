@@ -150,7 +150,6 @@
             "ls -l ",
             "mkdir -p TEMPLATE_INSTALL_PREFIX",
             "cp -rf ./lib TEMPLATE_INSTALL_PREFIX",
-            "cp -rf ./bin TEMPLATE_INSTALL_PREFIX",
             "cp -rf ./include TEMPLATE_INSTALL_PREFIX",
             "ls -l TEMPLATE_INSTALL_PREFIX"
         ],
