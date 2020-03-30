@@ -223,7 +223,6 @@ def build_package(target):
     clang_info = get_versions()['clang']
     clang_subdirectory = '{0}{1}-{2}'.format('clang', clang_info['version_string'], clang_info['consortium_build_number'])
     clang_executable = os.path.join(script_path, '{0}'.format(clang_subdirectory), 'bin', 'clang')
-    clang_c_executable = os.path.join(script_path, '{0}'.format(clang_subdirectory), 'bin', 'clang')
     clangpp_executable = os.path.join(script_path, '{0}'.format(clang_subdirectory), 'bin', 'clang++')
     clang_cpp_headers = os.path.join(script_path, '{0}'.format(clang_subdirectory), 'include', 'c++', 'v1')
     clang_cpp_libraries = os.path.join(script_path, '{0}'.format(clang_subdirectory), 'lib')
@@ -313,7 +312,6 @@ def build_package(target):
         i = re.sub("TEMPLATE_CLANG_CPP_LIBRARIES", clang_cpp_libraries, i)
         i = re.sub("TEMPLATE_CLANG_SUBDIRECTORY", clang_subdirectory, i)
         i = re.sub("TEMPLATE_CLANG_EXECUTABLE", clang_executable, i)
-        i = re.sub("TEMPLATE_CLANG_C_EXECUTABLE", clang_c_executable, i)
         i = re.sub("TEMPLATE_CLANGPP_EXECUTABLE", clangpp_executable, i)
         i = re.sub("TEMPLATE_CLANG_RUNTIME_RPATH", clang_runtime_rpath, i)
         i = re.sub("TEMPLATE_CMAKE_EXECUTABLE", cmake_executable, i)
