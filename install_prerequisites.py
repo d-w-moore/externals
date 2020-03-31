@@ -8,6 +8,7 @@ import optparse
 import os
 import platform
 import sys
+import delay_repeat
 
 RVM_VERSION = build.ruby_requirements['rvm']
 
@@ -20,10 +21,23 @@ def mkdir_p(path):
         else:
             raise
 
+servers = [
+  "na.pool.sks-keyservers.net",
+  "ipv4.pool.sks-keyservers.net",
+  "pool.sks-keyservers.net",
+  "eu.pool.sks-keyservers.net",
+  "oc.pool.sks-keyservers.net",
+]
+
+keyserver_command = " || ".join(
+                    "gpg --keyserver hkp://%s --keyserver-options timeout=15 "
+                    " --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 "
+                                " 7D2BAF1CF37B13E2069D6956105BD0E739499BDB " % server 
+                    for server in servers)
 
 def install_rvm_and_ruby():
-    cmd = 'gpg --keyserver hkp://na.pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB'
-    build.run_cmd(cmd, unsafe_shell=True, check_rc='gpg keys not received', retries=10)
+    #keyserver_command = 'gpg --keyserver hkp://na.pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB'
+    build.run_cmd(keyserver_command, unsafe_shell=True, check_rc='gpg keys not received', retries=delay_repeat.modified(count=10))
     cmd = 'curl -sSL https://get.rvm.io | bash -s stable'
     build.run_cmd(cmd, unsafe_shell=True, check_rc='curl failed')
     cmd = 'rvm reload && rvm requirements run && rvm install {rvm_version}'.format(rvm_version = RVM_VERSION)
